@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jago Ngonten — Bikin Video AI Tinggal Ngobrol</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
+        :root {
+            --hitam: #0f172a; --abu: #64748b; --biru: #2563eb; --ungu: #7c3aed;
+            --emas: #f59e0b; --putih: #ffffff; --abu-terang: #f8fafc;
+            --abu-sangat-terang: #f1f5f9; --radius: 12px; --bayangan: 0 4px 20px rgba(0,0,0,0.05);
+        }
+        body { background: linear-gradient(180deg, var(--abu-terang) 0%, #ffffff 100%); color: var(--hitam); line-height: 1.6; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        header { padding: 20px 0; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.4rem; font-weight: 700; background: linear-gradient(90deg, var(--biru), var(--ungu)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .nav-links a { margin-left: 24px; text-decoration: none; color: var(--abu); font-weight: 500; }
+        .nav-links a:hover { color: var(--biru); }
+        .hero { padding: 60px 0 80px; text-align: center; }
+        .hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.1; margin-bottom: 24px; }
+        .hero h1 span { background: linear-gradient(90deg, var(--biru), var(--ungu)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero p { font-size: 1.15rem; color: var(--abu); max-width: 700px; margin: 0 auto 36px; }
+        .harga-box { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); color: white; padding: 32px 40px; border-radius: var(--radius); display: inline-block; margin-bottom: 36px; }
+        .harga-box .coret { color: #94a3b8; text-decoration: line-through; font-size: 1rem; }
+        .harga-box .baru { font-size: 2.2rem; font-weight: 700; color: var(--emas); }
+        .harga-box .keterangan { font-size: 0.9rem; color: #94a3b8; margin-top: 6px; }
+        .btn { display: inline-block; padding: 14px 36px; border-radius: 10px; font-size: 1.05rem; font-weight: 600; text-decoration: none; transition: transform 0.2s; border: none; cursor: pointer; }
+        .btn:hover { transform: translateY(-2px); }
+        .btn-wa { background: linear-gradient(90deg, #25D366, #128C7E); color: white; }
+        .btn-kedua { background: var(--putih); color: var(--biru); border: 2px solid var(--biru); margin-left: 12px; }
+        .section-title { text-align: center; font-size: 2rem; margin-bottom: 48px; }
+        .section-title span { color: var(--biru); }
+        .demo-section { background: var(--abu-sangat-terang); padding: 60px 0; }
+        .ide-pilihan { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-bottom: 32px; }
+        .ide-tag { background: white; padding: 10px 20px; border-radius: 30px; font-weight: 500; border: 1px solid #e2e8f0; cursor: pointer; }
+        .ide-tag:hover { border-color: var(--biru); color: var(--biru); }
+        .prompt-box { background: white; padding: 30px; border-radius: var(--radius); max-width: 700px; margin: 0 auto; box-shadow: var(--bayangan); }
+        .prompt-box h3 { margin-bottom: 16px; }
+        .prompt-text { background: var(--abu-terang); padding: 20px; border-radius: 8px; font-family: monospace; white-space: pre-wrap; font-size: 0.9rem; margin-bottom: 12px; }
+        .copy-btn { padding: 8px 20px; background: var(--biru); color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 500; }
+        .kategori-section { padding: 60px 0; }
+        .kategori-tabs { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 32px; justify-content: center; }
+        .tab { padding: 8px 20px; border-radius: 20px; background: var(--abu-sangat-terang); font-size: 0.95rem; }
+        .tab.aktif { background: var(--biru); color: white; }
+        .daftar-skill { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 16px; }
+        .skill-item { background: white; padding: 20px; border-radius: 8px; border-left: 3px solid var(--biru); }
+        .skill-item h4 { font-size: 0.95rem; margin-bottom: 6px; }
+        .skill-item p { font-size: 0.85rem; color: var(--abu); }
+        .cara-section { background: var(--abu-sangat-terang); padding: 60px 0; }
+        .langkah { display: flex; flex-direction: column; gap: 28px; max-width: 700px; margin: 0 auto; }
+        .langkah-item { display: flex; gap: 20px; align-items: flex-start; }
+        .nomor { width: 44px; height: 44px; background: linear-gradient(90deg, var(--biru), var(--ungu)); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; }
+        .langkah-item h3 { font-size: 1.1rem; margin-bottom: 6px; }
+        .langkah-item p { color: var(--abu); }
+        .faq-section { padding: 60px 0; }
+        .faq-item { background: white; padding: 24px; border-radius: var(--radius); margin-bottom: 16px; border: 1px solid var(--abu-sangat-terang); }
+        .faq-item h4 { font-size: 1rem; margin-bottom: 8px; }
+        .faq-item p { color: var(--abu); font-size: 0.95rem; }
+        footer { background: var(--hitam); color: white; padding: 50px 0 30px; text-align: center; }
+        footer h3 { margin-bottom: 10px; }
+        footer p { color: #94a3b8; font-size: 0.9rem; }
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .btn-kedua { margin-left: 0; margin-top: 12px; }
+        }
+    </style>
+</head>
+<body>
+    <header class="container">
+        <div class="logo">Jago Ngonten</div>
+        <nav class="nav-links">
+            <a href="#demo">Demo</a>
+            <a href="#paket">Isi Paket</a>
+            <a href="#cara">Cara Kerja</a>
+            <a href="#faq">FAQ</a>
+        </nav>
+    </header>
+
+    <section class="hero container">
+        <h1>Bikin video AI tinggal <span>ngobrol sama agen AI</span></h1>
+        <p>Satu bundel berisi <strong>47 paket skill</strong> — buat dokumenter, video faceless, stickman, sampai motion graphics. Semua dikerjakan lewat chat, <strong>bisa langsung dari HP</strong>.</p>
+        <div class="harga-box">
+            <div class="coret">Harga normal ~Rp399.000~</div>
+            <div class="baru">Rp120.000</div>
+            <div class="keterangan">Sekali bayar · Free update skill seumur hidup</div>
+        </div>
+        <br>
+        <a href="https://wa.me/6281234567890?text=Halo%2C%20saya%20mau%20order%20Jago%20Nkonten" target="_blank" class="btn btn-wa">💬 Order via WhatsApp</a>
+        <a href="#demo" class="btn btn-kedua">Coba Demo</a>
+    </section>
+
+      <section class="demo-section" id="demo">
+        <div class="container">
+            <h2 class="section-title">Racik <span>Prompt Pertamamu</span></h2>
+            <p style="text-align:center; color:var(--abu); margin-bottom:24px;">Pilih ide atau tulis sendiri — salin promptnya ke AI favoritmu</p>
+            <div class="ide-pilihan">
+                <span class="ide-tag">🚢 Kapal Indianapolis</span>
+                <span class="ide-tag">💰 Stickman Nabung</span>
+                <span class="ide-tag">🌋 Gunung Meletus</span>
+                <span class="ide-tag">🐬 Orca di Laut</span>
+            </div>
+            <div class="prompt-box">
+                <h3>📝 Contoh Prompt Hasil Racikan</h3>
+                <div class="prompt-text" id="promptText">Bikinkan video tentang kapal Indianapolis yang hilang di Pasifik.
+
+• Format: 9:16 (vertikal, buat Shorts/Reels/TikTok)
+• Durasi: sekitar 60 detik
+• Gaya visual: dokumenter sinematik dengan foto arsip dan peta animasi
+• Struktur: hook kuat di 3 detik pertama, cerita mengalir, penutup rapi
+• Lengkap dengan naskah narasi Bahasa Indonesia dan suara narator
+• Hasil akhir: file MP4 siap upload</div>
+                <button class="copy-btn" onclick="navigator.clipboard.writeText(document.getElementById('promptText').innerText); alert('✅ Prompt berhasil disalin!');">📋 Salin Prompt</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="kategori-section container" id="paket">
+        <h2 class="section-title">Jelajahi <span>47 Paket Skill</span></h2>
+        <div class="kategori-tabs">
+            <span class="tab aktif">Semua · 47</span>
+            <span class="tab">Dokumenter & Film · 10</span>
+            <span class="tab">Faceless & Animasi · 15</span>
+            <span class="tab">Motion & Visual · 9</span>
+            <span class="tab">Editor Video · 8</span>
+            <span class="tab">Tools & Panduan · 5</span>
+        </div>
+        <div class="daftar-skill">
+            <div class="skill-item"><h4>🎬 Documentary Depth</h4><p>Dokumenter kisah nyata bergaya film</p></div>
+            <div class="skill-item"><h4>🎬 Silver Noir 3D</h4><p>Dokumenter 3D hitam-putih gaya film noir</p></div>
+            <div class="skill-item"><h4>🎬 ORCA</h4><p>Film hewan faceless</p></div>
+            <div class="skill-item"><h4>👤 Faceless 5 Gaya</h4><p>Lima gaya video faceless dalam satu paket</p></div>
+            <div class="skill-item"><h4>👤 Psychology Stickman</h4><p>Video stickman bertema psikologi</p></div>
+            <div class="skill-item"><h4>✨ Motion Graphics V3</h4><p>Teks & elemen bergerak yang tegas</p></div>
+            <div class="skill-item"><h4>✨ Map Animation</h4><p>Master prompt untuk peta bergerak</p></div>
+            <div class="skill-item"><h4>✂️ ZERO AI Editor</h4><p>Editor video berbiaya $0</p></div>
+            <div class="skill-item"><h4>✂️ Free Clipper</h4><p>Potong video jadi klip pendek otomatis</p></div>
+            <div class="skill-item"><h4>📖 ORIGIN Clone Kit</h4><p>Duplikat setup proyek video</p></div>
+        </div>
+        <p style="text-align:center; margin-top:24px; color:var(--abu); font-size:0.9rem;">+ 37 paket lainnya dikirim lengkap dalam folder Google Drive</p>
+    </section>
+
+    <section class="cara-section" id="cara">
+        <div class="container">
+            <h2 class="section-title">Dari Order → <span>Video Jadi</span></h2>
+            <div class="langkah">
+                <div class="langkah-item"><div class="nomor">1</div><div><h3>💬 Chat WhatsApp & Bayar</h3><p>Klik tombol order, sampaikan mau ambil paketnya, lalu selesaikan pembayaran Rp120.000.</p></div></div>
+                <div class="langkah-item"><div class="nomor">2</div><div><h3>📂 Link Drive Dikirim</h3><p>Setelah pembayaran terkonfirmasi, kamu terima link folder Google Drive berisi seluruh paket.</p></div></div>
+                <div class="langkah-item"><div class="nomor">3</div><div><h3>⬇️ Unduh ZIP Skill</h3><p>Pilih skill yang mau dipakai, unduh file ZIP-nya — jangan diekstrak dulu.</p></div></div>
+                <div class="langkah-item"><div class="nomor">4</div><div><h3>📎 Pasang di AI</h3><p>Buka AI favoritmu, lampirkan file ZIP, lalu tempel prompt instalasi yang sudah disediakan.</p></div></div>
+                <div class="langkah-item"><div class="nomor">5</div><div><h3>💬 Ceritakan Ide</h3><p>Tulis idemu lewat chat — AI yang menyusun adegan, naskah, suara, dan visualnya.</p></div></div>
+                <div class="langkah-item"><div class="nomor">6</div><div><h3>🎬 Render & Selesai!</h3><p>Video jadi file MP4 siap upload ke YouTube, TikTok, atau Instagram.</p></div></div>
+            </div>
+        </div>
+    </section>
+
+      <section class="faq-section container" id="faq">
+        <h2 class="section-title">Yang Sering <span>Ditanyakan</span></h2>
+        <div class="faq-item"><h4>Apakah butuh After Effects atau CapCut?</h4><p>Tidak. Semua dikerjakan lewat chat dengan AI — tidak ada editing manual yang rumit.</p></div>
+        <div class="faq-item"><h4>Bisa benar-benar dari HP?</h4><p>Bisa. Semua skill sudah diuji — pasang, buat video, sampai selesai semua dari HP.</p></div>
+        <div class="faq-item"><h4>Jalan di AI apa saja?</h4><p>Support semua AI — sudah diuji di Claude, Muse, dan asisten AI lainnya.</p></div>
+        <div class="faq-item"><h4>Ada biaya langganan?</h4><p>Tidak. Sekali bayar, miliki selamanya. Update skill juga gratis seumur hidup.</p></div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <h3>Jago Ngonten</h3>
+            <p>Bikin video AI tinggal ngobrol. © 2026 — Semua Hak Dilindungi</p>
+        </div>
+    </footer>
+</body>
+</html>
