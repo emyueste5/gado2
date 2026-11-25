@@ -5,71 +5,86 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jago Ngonten — Bikin Video AI Tinggal Ngobrol</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
-        :root {
-            --hitam: #0f172a; --abu: #64748b; --biru: #2563eb; --ungu: #7c3aed;
-            --emas: #f59e0b; --putih: #ffffff; --abu-terang: #f8fafc;
-            --abu-sangat-terang: #f1f5f9; --radius: 12px; --bayangan: 0 4px 20px rgba(0,0,0,0.05);
+        *{margin:0;padding:0;box-sizing:border-box}
+        :root{
+            --hitam:#0b1120;--abu:#94a3b8;--abu-terang:#e2e8f0;
+            --biru:#3b82f6;--ungu:#8b5cf6;--emas:#f59e0b;
+            --putih:#fff;--bg:#f8fafc;--radius:10px;
+            --bayangan:0 1px 3px rgba(0,0,0,.08),0 4px 12px rgba(0,0,0,.04);
+            --transisi:all .25s ease
         }
-        body { background: linear-gradient(180deg, var(--abu-terang) 0%, #ffffff 100%); color: var(--hitam); line-height: 1.6; }
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
-        header { padding: 20px 0; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 1.4rem; font-weight: 700; background: linear-gradient(90deg, var(--biru), var(--ungu)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .nav-links a { margin-left: 24px; text-decoration: none; color: var(--abu); font-weight: 500; }
-        .nav-links a:hover { color: var(--biru); }
-        .hero { padding: 60px 0 80px; text-align: center; }
-        .hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.1; margin-bottom: 24px; }
-        .hero h1 span { background: linear-gradient(90deg, var(--biru), var(--ungu)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .hero p { font-size: 1.15rem; color: var(--abu); max-width: 700px; margin: 0 auto 36px; }
-        .harga-box { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); color: white; padding: 32px 40px; border-radius: var(--radius); display: inline-block; margin-bottom: 36px; }
-        .harga-box .coret { color: #94a3b8; text-decoration: line-through; font-size: 1rem; }
-        .harga-box .baru { font-size: 2.2rem; font-weight: 700; color: var(--emas); }
-        .harga-box .keterangan { font-size: 0.9rem; color: #94a3b8; margin-top: 6px; }
-        .btn { display: inline-block; padding: 14px 36px; border-radius: 10px; font-size: 1.05rem; font-weight: 600; text-decoration: none; transition: transform 0.2s; border: none; cursor: pointer; }
-        .btn:hover { transform: translateY(-2px); }
-        .btn-wa { background: linear-gradient(90deg, #25D366, #128C7E); color: white; }
-        .btn-kedua { background: var(--putih); color: var(--biru); border: 2px solid var(--biru); margin-left: 12px; }
-        .section-title { text-align: center; font-size: 2rem; margin-bottom: 48px; }
-        .section-title span { color: var(--biru); }
-        .demo-section { background: var(--abu-sangat-terang); padding: 60px 0; }
-        .ide-pilihan { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-bottom: 32px; }
-        .ide-tag { background: white; padding: 10px 20px; border-radius: 30px; font-weight: 500; border: 1px solid #e2e8f0; cursor: pointer; }
-        .ide-tag:hover { border-color: var(--biru); color: var(--biru); }
-        .prompt-box { background: white; padding: 30px; border-radius: var(--radius); max-width: 700px; margin: 0 auto; box-shadow: var(--bayangan); }
-        .prompt-box h3 { margin-bottom: 16px; }
-        .prompt-text { background: var(--abu-terang); padding: 20px; border-radius: 8px; font-family: monospace; white-space: pre-wrap; font-size: 0.9rem; margin-bottom: 12px; }
-        .copy-btn { padding: 8px 20px; background: var(--biru); color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 500; }
-        .kategori-section { padding: 60px 0; }
-        .kategori-tabs { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 32px; justify-content: center; }
-        .tab { padding: 8px 20px; border-radius: 20px; background: var(--abu-sangat-terang); font-size: 0.95rem; }
-        .tab.aktif { background: var(--biru); color: white; }
-        .daftar-skill { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 16px; }
-        .skill-item { background: white; padding: 20px; border-radius: 8px; border-left: 3px solid var(--biru); }
-        .skill-item h4 { font-size: 0.95rem; margin-bottom: 6px; }
-        .skill-item p { font-size: 0.85rem; color: var(--abu); }
-        .cara-section { background: var(--abu-sangat-terang); padding: 60px 0; }
-        .langkah { display: flex; flex-direction: column; gap: 28px; max-width: 700px; margin: 0 auto; }
-        .langkah-item { display: flex; gap: 20px; align-items: flex-start; }
-        .nomor { width: 44px; height: 44px; background: linear-gradient(90deg, var(--biru), var(--ungu)); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; }
-        .langkah-item h3 { font-size: 1.1rem; margin-bottom: 6px; }
-        .langkah-item p { color: var(--abu); }
-        .faq-section { padding: 60px 0; }
-        .faq-item { background: white; padding: 24px; border-radius: var(--radius); margin-bottom: 16px; border: 1px solid var(--abu-sangat-terang); }
-        .faq-item h4 { font-size: 1rem; margin-bottom: 8px; }
-        .faq-item p { color: var(--abu); font-size: 0.95rem; }
-        footer { background: var(--hitam); color: white; padding: 50px 0 30px; text-align: center; }
-        footer h3 { margin-bottom: 10px; }
-        footer p { color: #94a3b8; font-size: 0.9rem; }
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .btn-kedua { margin-left: 0; margin-top: 12px; }
+        body{font-family:Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--hitam);line-height:1.6}
+        .container{max-width:1200px;margin:0 auto;padding:0 20px}
+        header{padding:20px 0;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #eaeef3}
+        .logo{font-size:1.4rem;font-weight:700;background:linear-gradient(135deg,var(--biru),var(--ungu));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        nav a{margin-left:24px;text-decoration:none;color:var(--abu);font-weight:500;font-size:.95rem}
+        nav a:hover{color:var(--biru)}
+        .hero{padding:70px 0 90px;text-align:center}
+        .hero h1{font-size:clamp(2.2rem,5vw,3.5rem);line-height:1.2;margin-bottom:20px;font-weight:800}
+        .hero h1 span{background:linear-gradient(135deg,var(--biru),var(--ungu));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .hero p{font-size:1.15rem;color:var(--abu);max-width:720px;margin:0 auto 32px;line-height:1.7}
+        .harga-card{background:linear-gradient(135deg,#0f172a,#1e293b);color:#fff;padding:36px 48px;border-radius:var(--radius);display:inline-block;margin-bottom:32px}
+        .harga-card .coret{color:#64748b;text-decoration:line-through;font-size:1rem}
+        .harga-card .harga{font-size:2.4rem;font-weight:800;color:var(--emas)}
+        .harga-card .catatan{font-size:.85rem;color:#94a3b8;margin-top:6px}
+        .btn{display:inline-block;padding:14px 32px;border-radius:8px;font-size:1rem;font-weight:600;text-decoration:none;transition:var(--transisi);border:none;cursor:pointer}
+        .btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.12)}
+        .btn-wa{background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff}
+        .btn-kedua{background:#fff;color:var(--biru);border:2px solid var(--biru);margin-left:12px}
+        .stats{display:flex;justify-content:center;gap:60px;margin:40px 0;flex-wrap:wrap}
+        .stat-item{text-align:center}
+        .stat-num{font-size:2rem;font-weight:700;color:var(--biru)}
+        .stat-label{font-size:.9rem;color:var(--abu)}
+        section h2{font-size:1.8rem;text-align:center;margin-bottom:40px;font-weight:700}
+        section h2 span{color:var(--biru)}
+        .ide-section{background:#f1f5f9;padding:60px 0}
+        .ide-pilihan{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-bottom:32px}
+        .ide-tag{background:#fff;padding:10px 20px;border-radius:24px;font-size:.95rem;color:#475569;border:1px solid #e2e8f0;cursor:pointer}
+        .ide-tag:hover{border-color:var(--biru);color:var(--biru)}
+        .prompt-box{background:#fff;padding:28px;border-radius:var(--radius);max-width:700px;margin:0 auto;box-shadow:var(--bayangan)}
+        .prompt-box h3{font-size:1.1rem;margin-bottom:16px;color:#334155}
+        .prompt-text{background:#f8fafc;padding:20px;border-radius:6px;font-family:monospace;font-size:.88rem;line-height:1.7;color:#1e293b;white-space:pre-wrap;margin-bottom:12px}
+        .copy-btn{background:var(--biru);color:#fff;padding:8px 20px;border:none;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:500}
+        .copy-btn:hover{background:#2563eb}
+        .ai-support{padding:60px 0}
+        .ai-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px}
+        .ai-card{background:#fff;padding:24px;border-radius:var(--radius);border:1px solid #eaeef3}
+        .ai-card:hover{border-color:var(--biru)}
+        .ai-card h3{font-size:1rem;margin-bottom:8px;color:#1e293b}
+        .ai-card p{font-size:.9rem;color:var(--abu)}
+        .kategori-section{padding:60px 0}
+        .kategori-tabs{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:40px}
+        .tab{padding:8px 18px;border-radius:20px;background:#f1f5f9;font-size:.9rem;cursor:pointer}
+        .tab.aktif{background:var(--biru);color:#fff}
+        .skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+        .skill-card{background:#fff;padding:20px;border-radius:var(--radius);border-left:3px solid var(--biru);box-shadow:var(--bayangan)}
+        .skill-card:hover{transform:translateY(-3px)}
+        .skill-card h4{font-size:.95rem;margin-bottom:6px;color:#1e293b}
+        .skill-card p{font-size:.85rem;color:var(--abu)}
+        .cara-section{background:#f1f5f9;padding:60px 0}
+        .langkah{max-width:700px;margin:0 auto}
+        .langkah-item{display:flex;gap:20px;margin-bottom:32px;align-items:flex-start}
+        .nomor{width:40px;height:40px;background:linear-gradient(135deg,var(--biru),var(--ungu));color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0}
+        .langkah-item h3{font-size:1.05rem;margin-bottom:4px}
+        .langkah-item p{color:var(--abu);font-size:.95rem}
+        .faq-section{padding:60px 0}
+        .faq-item{background:#fff;padding:24px;border-radius:var(--radius);margin-bottom:16px;border:1px solid #eaeef3}
+        .faq-item h4{font-size:1rem;margin-bottom:8px}
+        .faq-item p{color:var(--abu);font-size:.95rem}
+        footer{background:#0b1120;color:#fff;padding:40px 0;text-align:center}
+        footer p{color:#64748b;font-size:.9rem}
+        @media (max-width:768px){
+            nav{display:none}
+            .hero h1{font-size:1.8rem}
+            .btn-kedua{margin-left:0;margin-top:12px;display:block}
+            .stats{gap:30px}
         }
     </style>
 </head>
 <body>
     <header class="container">
         <div class="logo">Jago Ngonten</div>
-        <nav class="nav-links">
+        <nav>
             <a href="#demo">Demo</a>
             <a href="#paket">Isi Paket</a>
             <a href="#cara">Cara Kerja</a>
@@ -80,91 +95,131 @@
     <section class="hero container">
         <h1>Bikin video AI tinggal <span>ngobrol sama agen AI</span></h1>
         <p>Satu bundel berisi <strong>47 paket skill</strong> — buat dokumenter, video faceless, stickman, sampai motion graphics. Semua dikerjakan lewat chat, <strong>bisa langsung dari HP</strong>.</p>
-        <div class="harga-box">
-            <div class="coret">Harga normal ~Rp399.000~</div>
-            <div class="baru">Rp120.000</div>
-            <div class="keterangan">Sekali bayar · Free update skill seumur hidup</div>
+        
+        <div class="harga-card">
+            <div class="coret">Rp399.000</div>
+            <div class="harga">Rp120.000</div>
+            <div class="catatan">Sekali bayar · Free update skill seumur hidup</div>
         </div>
         <br>
-        <a href="https://wa.me/6281234567890?text=Halo%2C%20saya%20mau%20order%20Jago%20Nkonten" target="_blank" class="btn btn-wa">💬 Order via WhatsApp</a>
+        <a href="https://wa.me/6281234567890" target="_blank" class="btn btn-wa">💬 Order via WhatsApp</a>
         <a href="#demo" class="btn btn-kedua">Coba Demo</a>
+
+        <div class="stats">
+            <div class="stat-item"><div class="stat-num">47</div><div class="stat-label">Paket Skill</div></div>
+            <div class="stat-item"><div class="stat-num">5</div><div class="stat-label">Kategori</div></div>
+            <div class="stat-item"><div class="stat-num">∞</div><div class="stat-label">Update Seumur Hidup</div></div>
+        </div>
     </section>
 
-      <section class="demo-section" id="demo">
+        <section class="ide-section" id="demo">
         <div class="container">
-            <h2 class="section-title">Racik <span>Prompt Pertamamu</span></h2>
-            <p style="text-align:center; color:var(--abu); margin-bottom:24px;">Pilih ide atau tulis sendiri — salin promptnya ke AI favoritmu</p>
+            <h2>Racik <span>Prompt Pertamamu</span></h2>
+            <p style="text-align:center;color:#64748b;margin-bottom:24px">Pilih ide atau tulis sendiri — salin promptnya ke AI favoritmu</p>
+            
             <div class="ide-pilihan">
                 <span class="ide-tag">🚢 Kapal Indianapolis</span>
                 <span class="ide-tag">💰 Stickman Nabung</span>
                 <span class="ide-tag">🌋 Gunung Meletus</span>
                 <span class="ide-tag">🐬 Orca di Laut</span>
             </div>
+
             <div class="prompt-box">
-                <h3>📝 Contoh Prompt Hasil Racikan</h3>
+                <h3>📝 Contoh Prompt</h3>
                 <div class="prompt-text" id="promptText">Bikinkan video tentang kapal Indianapolis yang hilang di Pasifik.
 
-• Format: 9:16 (vertikal, buat Shorts/Reels/TikTok)
-• Durasi: sekitar 60 detik
-• Gaya visual: dokumenter sinematik dengan foto arsip dan peta animasi
-• Struktur: hook kuat di 3 detik pertama, cerita mengalir, penutup rapi
-• Lengkap dengan naskah narasi Bahasa Indonesia dan suara narator
-• Hasil akhir: file MP4 siap upload</div>
-                <button class="copy-btn" onclick="navigator.clipboard.writeText(document.getElementById('promptText').innerText); alert('✅ Prompt berhasil disalin!');">📋 Salin Prompt</button>
+• Format: 9:16 vertikal
+• Durasi: ~60 detik
+• Gaya: dokumenter sinematik
+• Lengkap dengan naskah & narasi
+• Hasil: MP4 siap upload</div>
+                <button class="copy-btn" onclick="navigator.clipboard.writeText(document.getElementById('promptText').innerText); alert('Disalin!');">📋 Salin Prompt</button>
             </div>
         </div>
     </section>
 
-    <section class="kategori-section container" id="paket">
-        <h2 class="section-title">Jelajahi <span>47 Paket Skill</span></h2>
+    <section class="ai-support container">
+        <h2>Bisa dari HP · Semua AI</h2>
+        <div class="ai-grid">
+            <div class="ai-card">
+                <h3>🤖 Claude</h3>
+                <p>Pasang skill, lalu buat video tinggal chat — termasuk dari HP.</p>
+            </div>
+            <div class="ai-card">
+                <h3>🎨 Muse</h3>
+                <p>Sudah diuji — jalan lancar di Muse juga.</p>
+            </div>
+            <div class="ai-card">
+                <h3>💬 AI Lain</h3>
+                <p>Support semua AI favoritmu — bebas pilih.</p>
+            </div>
+            <div class="ai-card">
+                <h3>📱 Bisa HP</h3>
+                <p>Semua dari HP — order, pasang skill, sampai jadi video.</p>
+            </div>
+        </div>
+    </section>
+
+        <section class="kategori-section container" id="paket">
+        <h2>47 Paket Skill</h2>
         <div class="kategori-tabs">
-            <span class="tab aktif">Semua · 47</span>
-            <span class="tab">Dokumenter & Film · 10</span>
-            <span class="tab">Faceless & Animasi · 15</span>
-            <span class="tab">Motion & Visual · 9</span>
-            <span class="tab">Editor Video · 8</span>
-            <span class="tab">Tools & Panduan · 5</span>
+            <span class="tab aktif">Semua</span>
+            <span class="tab">Dokumenter</span>
+            <span class="tab">Faceless</span>
+            <span class="tab">Motion</span>
+            <span class="tab">Editor</span>
+            <span class="tab">Tools</span>
         </div>
-        <div class="daftar-skill">
-            <div class="skill-item"><h4>🎬 Documentary Depth</h4><p>Dokumenter kisah nyata bergaya film</p></div>
-            <div class="skill-item"><h4>🎬 Silver Noir 3D</h4><p>Dokumenter 3D hitam-putih gaya film noir</p></div>
-            <div class="skill-item"><h4>🎬 ORCA</h4><p>Film hewan faceless</p></div>
-            <div class="skill-item"><h4>👤 Faceless 5 Gaya</h4><p>Lima gaya video faceless dalam satu paket</p></div>
-            <div class="skill-item"><h4>👤 Psychology Stickman</h4><p>Video stickman bertema psikologi</p></div>
-            <div class="skill-item"><h4>✨ Motion Graphics V3</h4><p>Teks & elemen bergerak yang tegas</p></div>
-            <div class="skill-item"><h4>✨ Map Animation</h4><p>Master prompt untuk peta bergerak</p></div>
-            <div class="skill-item"><h4>✂️ ZERO AI Editor</h4><p>Editor video berbiaya $0</p></div>
-            <div class="skill-item"><h4>✂️ Free Clipper</h4><p>Potong video jadi klip pendek otomatis</p></div>
-            <div class="skill-item"><h4>📖 ORIGIN Clone Kit</h4><p>Duplikat setup proyek video</p></div>
+        <div class="skills-grid">
+            <div class="skill-card"><h4>🎬 Documentary Depth</h4><p>Dokumenter kisah nyata</p></div>
+            <div class="skill-card"><h4>🎬 Silver Noir 3D</h4><p>Dokumenter 3D hitam-putih</p></div>
+            <div class="skill-card"><h4>🎬 ORCA</h4><p>Film hewan faceless</p></div>
+            <div class="skill-card"><h4>👤 Faceless 5 Gaya</h4><p>5 gaya video faceless</p></div>
+            <div class="skill-card"><h4>👤 Psychology Stickman</h4><p>Stickman bertema psikologi</p></div>
+            <div class="skill-card"><h4>✨ Motion Graphics V3</h4><p>Teks & elemen bergerak</p></div>
+            <div class="skill-card"><h4>✨ Map Animation</h4><p>Prompt peta bergerak</p></div>
+            <div class="skill-card"><h4>✂️ ZERO AI Editor</h4><p>Editor video gratis</p></div>
+            <div class="skill-card"><h4>✂️ Free Clipper</h4><p>Potong video otomatis</p></div>
+            <div class="skill-card"><h4>📖 ORIGIN Clone Kit</h4><p>Duplikat proyek video</p></div>
         </div>
-        <p style="text-align:center; margin-top:24px; color:var(--abu); font-size:0.9rem;">+ 37 paket lainnya dikirim lengkap dalam folder Google Drive</p>
+        <p style="text-align:center;margin-top:24px;color:var(--abu)">+ 37 paket lainnya dikirim via Google Drive</p>
     </section>
 
     <section class="cara-section" id="cara">
         <div class="container">
-            <h2 class="section-title">Dari Order → <span>Video Jadi</span></h2>
+            <h2>Dari Order → Video Jadi</h2>
             <div class="langkah">
-                <div class="langkah-item"><div class="nomor">1</div><div><h3>💬 Chat WhatsApp & Bayar</h3><p>Klik tombol order, sampaikan mau ambil paketnya, lalu selesaikan pembayaran Rp120.000.</p></div></div>
-                <div class="langkah-item"><div class="nomor">2</div><div><h3>📂 Link Drive Dikirim</h3><p>Setelah pembayaran terkonfirmasi, kamu terima link folder Google Drive berisi seluruh paket.</p></div></div>
-                <div class="langkah-item"><div class="nomor">3</div><div><h3>⬇️ Unduh ZIP Skill</h3><p>Pilih skill yang mau dipakai, unduh file ZIP-nya — jangan diekstrak dulu.</p></div></div>
-                <div class="langkah-item"><div class="nomor">4</div><div><h3>📎 Pasang di AI</h3><p>Buka AI favoritmu, lampirkan file ZIP, lalu tempel prompt instalasi yang sudah disediakan.</p></div></div>
-                <div class="langkah-item"><div class="nomor">5</div><div><h3>💬 Ceritakan Ide</h3><p>Tulis idemu lewat chat — AI yang menyusun adegan, naskah, suara, dan visualnya.</p></div></div>
-                <div class="langkah-item"><div class="nomor">6</div><div><h3>🎬 Render & Selesai!</h3><p>Video jadi file MP4 siap upload ke YouTube, TikTok, atau Instagram.</p></div></div>
+                <div class="langkah-item"><div class="nomor">1</div><div><h3>💬 Chat & Bayar</h3><p>Klik tombol WhatsApp, lalu selesaikan pembayaran.</p></div></div>
+                <div class="langkah-item"><div class="nomor">2</div><div><h3>📂 Terima Link Drive</h3><p>Link folder dikirim setelah pembayaran dikonfirmasi.</p></div></div>
+                <div class="langkah-item"><div class="nomor">3</div><div><h3>⬇️ Unduh & Pasang</h3><p>Unduh file ZIP, lalu pasang ke AI favoritmu.</p></div></div>
+                <div class="langkah-item"><div class="nomor">4</div><div><h3>💬 Cerita Ide → Jadi Video!</h3><p>Chat idemu ke AI, tunggu sebentar, video MP4 siap!</p></div></div>
             </div>
         </div>
     </section>
 
-      <section class="faq-section container" id="faq">
-        <h2 class="section-title">Yang Sering <span>Ditanyakan</span></h2>
-        <div class="faq-item"><h4>Apakah butuh After Effects atau CapCut?</h4><p>Tidak. Semua dikerjakan lewat chat dengan AI — tidak ada editing manual yang rumit.</p></div>
-        <div class="faq-item"><h4>Bisa benar-benar dari HP?</h4><p>Bisa. Semua skill sudah diuji — pasang, buat video, sampai selesai semua dari HP.</p></div>
-        <div class="faq-item"><h4>Jalan di AI apa saja?</h4><p>Support semua AI — sudah diuji di Claude, Muse, dan asisten AI lainnya.</p></div>
-        <div class="faq-item"><h4>Ada biaya langganan?</h4><p>Tidak. Sekali bayar, miliki selamanya. Update skill juga gratis seumur hidup.</p></div>
+        <section class="faq-section container" id="faq">
+        <h2>Pertanyaan Umum</h2>
+        <div class="faq-item">
+            <h4>❓ Butuh software editing mahal?</h4>
+            <p>Tidak. Semua dikerjakan lewat chat dengan AI — tidak perlu After Effects atau CapCut.</p>
+        </div>
+        <div class="faq-item">
+            <h4>❓ Bisa dipakai dari HP?</h4>
+            <p>Bisa. Semua sudah diuji — pasang skill sampai buat video semua bisa dari HP.</p>
+        </div>
+        <div class="faq-item">
+            <h4>❓ Ada biaya langganan?</h4>
+            <p>Tidak. Sekali bayar, miliki selamanya. Update skill juga gratis seumur hidup.</p>
+        </div>
+        <div class="faq-item">
+            <h4>❓ Jalan di AI apa saja?</h4>
+            <p>Support semua AI — Claude, Muse, dan asisten AI lainnya.</p>
+        </div>
     </section>
 
     <footer>
         <div class="container">
-            <h3>Jago Ngonten</h3>
+            <h3 style="margin-bottom:8px;color:#fff">Jago Ngonten</h3>
             <p>Bikin video AI tinggal ngobrol. © 2026 — Semua Hak Dilindungi</p>
         </div>
     </footer>
